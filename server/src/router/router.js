@@ -140,8 +140,41 @@ router.post("/code", async (req, res) => {
 router.get("/verify", (req, res) => {
   if (req.session.userID) {
     res.json({ log: true });
+    console.log(req.session.userID);
   } else {
     res.json({ log: false });
+  }
+});
+
+//  LOGIN IN
+router.post("/login", async (req, res) => {
+  //  CREDENTIALS FROM THE CLIENT
+  const { email, password } = req.body;
+
+  //  CHECKING IF THE EMAIL IS SIGNED
+  const [emailCheck] = await (
+    await db
+  ).query("SELECT * FROM users WHERE user_email = ?", [email]);
+
+  //  ALSO CHECKING THE EMAIL
+  if (emailCheck.length > 0) {
+    //  COMPARING IF THE PASSWORD FROM THE USER IS THE SAME AS THE ONE IN THE DATABASE
+    bcrypt.compare(password, emailCheck[0].user_password, (err, result) => {
+      if (err)
+        return res.json({ ok: false, message: "Server error\nTry again" });
+
+      if (result) {
+        //  IF THE PASSWORD IS CORRECT
+        req.session.userID = emailCheck[0].user_id;
+        res.json({ ok: true });
+      } else {
+        //  IF NOT
+        res.json({ ok: false, message: "Wrong password" });
+      }
+    });
+  } else {
+    //  IF THE USER WAS NOT SIGNED
+    res.json({ ok: false, message: "User does not exist" });
   }
 });
 

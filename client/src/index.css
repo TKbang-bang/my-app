@@ -22,7 +22,7 @@
 }
 
 body {
-  padding: 0 18rem;
+  /* padding: 0 18rem; */
   color: var(--color5);
   font-size: 1.1rem;
 }
@@ -91,4 +91,247 @@ body {
   color: var(--color1);
   border: none;
   border-radius: 3px;
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+main nav {
+  grid-column: 1/2;
+  /* border: 1px solid #000; */
+  height: 100%;
+  padding: 0.5rem;
+}
+
+main nav ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+main nav ul a {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  /* border: 1px solid #000; */
+  text-decoration: none;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1rem;
+  font-weight: bold;
+  color: var(--color3);
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+main nav ul .active {
+  background-color: var(--color2);
+  color: var(--color1);
+}
+
+main > section {
+  grid-column: 2/4;
+  border: 1px solid #000;
+  height: 100%;
+  padding: 0.5rem 4rem;
+  overflow-y: scroll;
+  display: flex;
+  justify-content: flex-start;
+  /* align-items: center; */
+  flex-direction: column;
+  gap: 2rem;
+}
+
+main .pubs .pub {
+  background-color: var(--color1);
+}
+
+main .pubs .pub .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+}
+
+main .pubs .pub .top .info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+main .pubs .pub .top .info img {
+  border: 1px solid #d1d1d1;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #eaeaea;
+  object-fit: cover;
+}
+
+main .pubs .pub p {
+  margin: 0 2rem;
+}
+
+main .pubs .pub .img {
+  /* width: 100%; */
+  display: grid;
+  place-items: center;
+  /* border: 1px solid #000; */
+  margin: 1rem;
+  background-color: #d1d1d17a;
+  height: auto;
+}
+
+main .pubs .pub .img img {
+  width: 100%;
+  min-height: 20rem;
+  max-height: 25rem;
+  object-fit: scale-down;
+}
+
+main .pubs .pub .likes {
+  padding: 0.5rem 1rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+main .pubs .pub .likes .like,
+main .pubs .pub .likes .likent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #000;
+  background-color: var(--color3);
+  border-radius: 5rem;
+  color: var(--color1);
+  border: none;
+}
+
+main .pubs .pub .likes .like button,
+main .pubs .pub .likes .likent button {
+  padding: 0.5rem;
+  border-radius: 5rem;
+  border: none;
+  background-color: var(--color2);
+  color: var(--color1);
+  cursor: pointer;
+}
+
+main .profile {
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+main .profile .user {
+  width: 100%;
+}
+
+main .profile .user .info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+main .profile .user .info img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+}
+
+main .profile .user .options {
+  /* border: 1px solid #000; */
+  width: 100%;
+  border: 1px solid #000;
+}
+
+main .profile .user .options .ops {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #000;
+  width: 100%;
+  height: 3rem;
+  padding: 0 2rem;
+}
+
+main .profile .user .options .ops button {
+  width: 5rem;
+  height: 1.5rem;
+}
+
+main .profile .user .options .btns {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 100%;
+
+  transition: transform 2s linear 1s;
+}
+
+main .profile .user .options .btns button {
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+main .profile .user .options .off {
+  /* transition: 0.7s; */
+  height: 0px;
+  overflow: hidden;
+  transition: transform 2s linear 1s;
+}
+
+main .profile .myPubs h1 {
+  margin-bottom: 1rem;
+}
+
+main .profile .myPubs section {
+  display: flex;
+  justify-content: flex-start;
+  /* align-items: center; */
+  flex-direction: column;
+  gap: 2rem;
+}
+
+main .profile .session {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+main .profile .session button {
+  padding: 0.2rem 1rem;
+  border-radius: 5rem;
+  border: none;
+  background: none;
+  color: var(--color1);
+  cursor: pointer;
+}
+
+main .profile .session .close {
+  background-color: var(--color4);
+}
+main .profile .session .delete {
+  background-color: #ce3c3c;
+}
+
+main .following {
+  grid-column: 4/5;
+  border: 1px solid #000;
+  height: 100%;
 }

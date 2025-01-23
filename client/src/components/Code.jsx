@@ -9,7 +9,7 @@ function Code() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      axios.post(process.env.SERVERURL + "/code", { code }).then((res) => {
+      axios.post(`http://localhost:3000/code`, { code }).then((res) => {
         if (res.data.ok) {
           navigate("/");
         } else {

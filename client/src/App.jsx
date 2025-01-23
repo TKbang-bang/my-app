@@ -11,10 +11,10 @@ function App() {
 
   useEffect(() => {
     try {
-      axios.get(process.env.SERVERURL + "/verify").then((res) => {
+      axios.get(`http://localhost:3000/verify`).then((res) => {
         if (!res.data.log) {
-          if (window.location != process.env.CURRENTURL + "/signup")
-            navigate("/signin");
+          if (window.location != `http://localhost:5173/signup`)
+            navigate("/login");
         }
       });
     } catch (error) {

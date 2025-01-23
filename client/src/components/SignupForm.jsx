@@ -23,7 +23,11 @@ function SignupForm({ message }) {
     try {
       if (name != "" || email != "" || password != "") {
         axios
-          .post(process.env.SERVERURL + "/signup", { name, email, password })
+          .post(`http://localhost:3000/signup`, {
+            name,
+            email,
+            password,
+          })
           .then((res) => {
             if (res.data.ok) {
               setEmail("");
@@ -45,7 +49,7 @@ function SignupForm({ message }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
+      <h1>Sign up</h1>
       <input
         type="text"
         placeholder="Name"
@@ -69,7 +73,7 @@ function SignupForm({ message }) {
       </article>
       <button type="submit">Sign up</button>
       <p>
-        Do you already have an account? <Link to={"/signin"}>Sign in</Link>
+        Do you already have an account? <Link to={"/login"}>Log in</Link>
       </p>
     </form>
   );
