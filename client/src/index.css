@@ -150,6 +150,7 @@ main > section {
 
 main .pubs .pub {
   background-color: var(--color1);
+  cursor: pointer;
 }
 
 main .pubs .pub .top {
@@ -249,13 +250,13 @@ main .profile .user .info img {
   border-radius: 50%;
 }
 
-main .profile .user .options {
+main .profile .options {
   /* border: 1px solid #000; */
   width: 100%;
   border: 1px solid #000;
 }
 
-main .profile .user .options .ops {
+main .profile .options .ops {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -265,12 +266,12 @@ main .profile .user .options .ops {
   padding: 0 2rem;
 }
 
-main .profile .user .options .ops button {
+main .profile .options .ops button {
   width: 5rem;
   height: 1.5rem;
 }
 
-main .profile .user .options .btns {
+main .profile .options .btns {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -280,7 +281,7 @@ main .profile .user .options .btns {
   transition: transform 2s linear 1s;
 }
 
-main .profile .user .options .btns button {
+main .profile .options .btns button {
   width: 100%;
   height: 3rem;
   font-size: 1rem;
@@ -288,7 +289,7 @@ main .profile .user .options .btns button {
   padding-left: 1rem;
 }
 
-main .profile .user .options .off {
+main .profile .options .off {
   /* transition: 0.7s; */
   height: 0px;
   overflow: hidden;
@@ -307,27 +308,46 @@ main .profile .myPubs section {
   gap: 2rem;
 }
 
-main .profile .session {
+main .publicate {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
 }
 
-main .profile .session button {
-  padding: 0.2rem 1rem;
-  border-radius: 5rem;
-  border: none;
-  background: none;
-  color: var(--color1);
-  cursor: pointer;
+main .publicate form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
 }
 
-main .profile .session .close {
-  background-color: var(--color4);
+main .publicate form * {
+  width: 100%;
+  height: 2.5rem;
 }
-main .profile .session .delete {
-  background-color: #ce3c3c;
+
+main .publicate form input {
+  padding-left: 0.5rem;
+  font-size: 1rem;
+}
+
+main .publicate form label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #81c022;
+  padding-left: 0.5rem;
+  background-color: #9be828;
+  color: #fff;
+}
+main .publicate form #myFile {
+  display: none;
+}
+
+main .publicate form img {
+  min-height: 20rem;
+  max-height: 25rem;
+  object-fit: cover;
 }
 
 main .following {

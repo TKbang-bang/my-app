@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("../database/db.js");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const upload = require("../configs/multer.js");
 
 //  INIT
 const router = express.Router();
@@ -140,7 +141,7 @@ router.post("/code", async (req, res) => {
 router.get("/verify", (req, res) => {
   if (req.session.userID) {
     res.json({ log: true });
-    console.log(req.session.userID);
+    // console.log(req.session.userID);
   } else {
     res.json({ log: false });
   }
@@ -175,6 +176,108 @@ router.post("/login", async (req, res) => {
   } else {
     //  IF THE USER WAS NOT SIGNED
     res.json({ ok: false, message: "User does not exist" });
+  }
+});
+
+router.post("/file", upload.single("file"), async (req, res) => {
+  try {
+    const [pubPut] = await (
+      await db
+    ).query(
+      "INSERT INTO publications (pub_id, user_id, pub_img, pub_title) VALUES (?,?,?,?)",
+      [
+        crypto.randomUUID(),
+        req.session.userID,
+        req.file.filename,
+        req.body.title,
+      ]
+    );
+
+    if (pubPut.affectedRows > 0) {
+      res.json({ ok: true });
+    } else {
+      res.json({ ok: false, message: "Unexpected error\nTry again" });
+    }
+  } catch (error) {
+    console.log({ error });
+    res.json({ ok: false, message: "Server error\nTry to reload the window" });
+  }
+});
+
+router.get("/myprofile", async (req, res) => {
+  try {
+    const [gettingUserData] = await (
+      await db
+    ).query(
+      "select user_name, user_email, user_profile, pub_id, pub_img, pub_title from users u join publications p on u.user_id = p.user_id where u.user_id = ?",
+      [req.session.userID]
+    );
+
+    res.json({ data: gettingUserData });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/pubs", async (req, res) => {
+  try {
+    const [gettingPubs] = await (
+      await db
+    ).query(
+      "select user_name, user_email, user_profile, pub_id, pub_img, pub_title from users u join publications p on u.user_id = p.user_id"
+    );
+
+    res.json({ data: gettingPubs });
+  } catch (error) {
+    console.log({ error });
+  }
+});
+
+router.delete("/logout", (req, res) => {
+  req.session.destroy();
+  res.json({ ok: true });
+});
+
+router.delete("/del", async (req, res) => {
+  try {
+    const [deleteAllPubs] = await (
+      await db
+    ).query("DELETE FROM publications WHERE user_id = ?", [req.session.userID]);
+
+    const [deleteAll] = await (
+      await db
+    ).query("DELETE FROM users WHERE user_id = ?", [req.session.userID]);
+
+    if (deleteAll.affectedRows > 0 && deleteAllPubs.affectedRows > 0) {
+      req.session.destroy();
+      res.json({ ok: true });
+    }
+  } catch (error) {
+    console.log({ error });
+    res.json({ ok: false, message: "Unexpected error\nTry again" });
+  }
+});
+
+router.get("/thispub/:pubid", async (req, res) => {
+  const pubID = req.params.pubid;
+
+  console.log(pubID);
+
+  try {
+    const [gettingPub] = await (
+      await db
+    ).query(
+      "select user_name, user_email, user_profile, pub_id, pub_img, pub_title from users u join publications p on u.user_id = p.user_id WHERE p.pub_id = ?",
+      [pubID]
+    );
+
+    const [gettingComments] = await (
+      await db
+    ).query("SELECT * FROM comments WHERE pub_id = ?", [pubID]);
+
+    res.json({ publication: gettingPub[0], comments: gettingComments });
+  } catch (error) {
+    console.log({ error });
   }
 });
 

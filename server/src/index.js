@@ -3,6 +3,7 @@ const router = require("./router/router.js");
 const cors = require("cors");
 const session = require("express-session");
 const myStore = require("./mySession.js");
+const path = require("path");
 
 //  ENV CONFIG
 require("dotenv").config();
@@ -17,11 +18,12 @@ app.set("port", process.env.PORT || 3000);
 app.use(
   cors({
     origin: process.env.CLIENTURL,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE"],
     credentials: true,
   })
 );
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../public")));
 
 //  SESSION
 app.use(
